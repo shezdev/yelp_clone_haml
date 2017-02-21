@@ -31,4 +31,16 @@ feature 'restaurants' do
       expect(current_path).to eq '/restaurants'
     end
   end
+
+  context 'viewing restaurants' do
+
+    let!(:zefi){ Restaurant.create(name:'zefi') }
+
+    scenario 'lets a user view a restaurant' do
+     visit '/restaurants'
+     click_link 'zefi'
+     expect(page).to have_content 'zefi'
+     expect(current_path).to eq "/restaurants/#{zefi.id}"
+    end
+  end
 end
