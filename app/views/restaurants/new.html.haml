@@ -5,7 +5,7 @@
       prohibited this restaurant from being saved:
     %ul
       - @restaurant.errors.full_messages.each do |message|
-        %li= message
+        %li{:id => "error"}= message
 
 
 = form_for @restaurant do |f|
