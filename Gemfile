@@ -11,6 +11,8 @@ group :test do
   gem 'rspec-collection_matchers'
 end
 
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'omniauth-facebook'
 gem 'devise'
 gem 'haml'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
