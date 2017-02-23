@@ -2,6 +2,9 @@ require 'rails_helper'
 
 feature 'restaurants' do
   include Helpers
+  before do
+    @user = User.find_by_email('test@test.com')
+  end
 
   context 'no restaurants have been added' do
     scenario 'should display a prompt to add a restaurant' do
@@ -13,7 +16,8 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
-      Restaurant.create(name: 'Carluccio\'s')
+      # @user = User.find_by_email('test@test.com')
+      @user.restaurants.create(name: 'Carluccio\'s')
     end
 
     scenario 'display restaurants' do
@@ -49,7 +53,7 @@ feature 'restaurants' do
 
   context 'viewing restaurants' do
 
-    let!(:zefi){ Restaurant.create(name:'zefi') }
+    let!(:zefi){ @user.restaurants.create(name:'zefi') }
 
     scenario 'lets a user view a restaurant' do
      visit '/restaurants'
@@ -60,7 +64,7 @@ feature 'restaurants' do
   end
 
   context 'editing restaurants' do
-    before { Restaurant.create name: 'Zefi', description: 'Healthy and home-made', id: 1 }
+    before { @user.restaurants.create name: 'Zefi', description: 'Healthy and home-made', id: 1 }
     scenario 'let a user edit a restaurant' do
       sign_up_sign_in
       visit '/restaurants'
@@ -77,7 +81,7 @@ feature 'restaurants' do
 
   context 'deleting restaurants' do
 
-    before { Restaurant.create name: 'Zefi', description: 'Healthy and home-made' }
+    before { @user.restaurants.create name: 'Zefi', description: 'Healthy and home-made' }
 
     scenario 'removes a restaurant when a user clicks a delete link' do
       sign_up_sign_in

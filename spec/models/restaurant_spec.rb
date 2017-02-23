@@ -1,6 +1,8 @@
 require 'rails_helper'
 
+
 describe Restaurant, type: :model do
+  include Helpers
   it 'is not valid with a name of less than three characters' do
     restaurant = Restaurant.new(name: "kf")
     expect(restaurant).to have(1).error_on(:name)
