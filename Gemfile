@@ -9,6 +9,7 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'rspec-collection_matchers'
+  gem 'shoulda', '~> 3.5'
 end
 
 gem 'dotenv-rails', groups: [:development, :test]
