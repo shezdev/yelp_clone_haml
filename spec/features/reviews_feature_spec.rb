@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 feature 'reviewing' do
+  include Helpers
+
   before do
-    @user = User.find_by_email('test@test.com')
+    sign_up
+    @user = User.find_by_email('test@example.com')
     @user.restaurants.create name: 'Carluccio\'s'
   end
 
