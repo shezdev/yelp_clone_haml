@@ -5,7 +5,6 @@ feature 'restaurants' do
   before do
     sign_up
     @user = User.find_by_email('test@example.com')
-    p @user
   end
 
   context 'no restaurants have been added' do
@@ -18,8 +17,6 @@ feature 'restaurants' do
 
   context 'restaurants have been added' do
     before do
-      p @user
-      # @user = User.find_by_email('test@test.com')
       @user.restaurants.create(name: 'Carluccio\'s')
     end
 
@@ -78,6 +75,13 @@ feature 'restaurants' do
       expect(page).to have_content 'Healthy and home-made'
       expect(current_path).to eq '/restaurants/1'
     end
+
+    scenario "a user cannot edit a restaurant that doesn't belong to them" do
+      visit('/')
+      click_link('Sign out')
+      sign_up_user_2
+      expect(page).not_to have_link 'Edit Zefi'
+    end
   end
 
   context 'deleting restaurants' do
@@ -89,6 +93,12 @@ feature 'restaurants' do
       click_link 'Delete Zefi'
       expect(page).not_to have_content 'Zefi'
       expect(page).to have_content 'Restaurant deleted successfully'
+    end
+    scenario "a user cannot delete a restaurant that doesn't belong to them" do
+      visit('/')
+      click_link('Sign out')
+      sign_up_user_2
+      expect(page).not_to have_link 'Delete Zefi'
     end
   end
 end
